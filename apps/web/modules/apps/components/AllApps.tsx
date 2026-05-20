@@ -158,7 +158,11 @@ export function AllApps({ apps, searchText, categories, userAdminTeams }: AllApp
           : app.category === selectedCategory
         : true
     )
-    .filter((app) => (searchText ? app.name.toLowerCase().includes(searchText.toLowerCase()) : true))
+    .filter((app) => {
+      if (!searchText) return true;
+      const normalize = (str: string) => str.toLowerCase().replace(/[\s\-_]+/g, "");
+      return normalize(app.name).includes(normalize(searchText));
+    })
     .sort(function (a, b) {
       if (a.name < b.name) return -1;
       else if (a.name > b.name) return 1;
