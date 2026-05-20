@@ -161,7 +161,7 @@ export function AllApps({ apps, searchText, categories, userAdminTeams }: AllApp
     .filter((app) => {
       if (!searchText) return true;
       const normalize = (str: string) => str.toLowerCase().replace(/[\s\-_]+/g, "");
-      return normalize(app.name).includes(normalize(searchText));
+      return normalize(app.name).includes(normalize(searchText.trim()));
     })
     .sort(function (a, b) {
       if (a.name < b.name) return -1;
